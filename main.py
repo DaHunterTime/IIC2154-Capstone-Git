@@ -1,25 +1,40 @@
 import json
 
 
-def top_retweeted(data: dict) -> list:
+def top_retweeted(data: list) -> list:
+    top10 = sorted(data, key=lambda x: x["retweetCount"])[:10]
+    return top10
+
+
+def top_users(data: list) -> list:
+    top_users = {}
+
+    for element in data:
+        top_users[element["user"]["username"]] = top_users.get(element["user"]["username"], 0) + 1
+
+    user_data = []
+
+    for key in top_users:
+        user_data.append({"url": key, "count": top_users[key]})
+
+    top10 = sorted(data, key=lambda x: x["count"])[:10]
+    return top10
+
+
+def top_days(data: list) -> list:
     pass
 
 
-def top_users(data: dict) -> list:
-    pass
-
-
-def top_days(data: dict) -> list:
-    pass
-
-
-def top_hashtags(data: dict) -> list:
+def top_hashtags(data: list) -> list:
     pass
 
 
 def main():
-    with open("data.json", "rb") as file:
-        data = json.load(file)
+    with open("farmers-protest-tweets-2021-03-5.json", "rb") as file:
+        data = []
+
+        for line in file:
+            data.append(json.loads(line))
 
     print(
         "================================================\n"
@@ -61,7 +76,7 @@ def main():
     )
 
     for idx, element in enumerate(selection):
-        print(f"{idx + 1}) {element}")
+        print(f"{idx + 1}) {element['url']}")
 
     print("================================================")
 
