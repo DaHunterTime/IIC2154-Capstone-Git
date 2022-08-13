@@ -22,11 +22,11 @@ def top_users(data: list) -> list:
 
 
 def top_days(data: list) -> list:
-    pass
+    raise NotImplementedError
 
 
 def top_hashtags(data: list) -> list:
-    pass
+    raise NotImplementedError
 
 
 def main():
